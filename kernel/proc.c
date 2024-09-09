@@ -514,6 +514,7 @@ sched(void)
     panic("sched interruptible");
 
   intena = mycpu()->intena;
+
   swtch(&p->context, &mycpu()->context);
   mycpu()->intena = intena;
 }
@@ -525,6 +526,7 @@ yield(void)
   struct proc *p = myproc();
   acquire(&p->lock);
   p->state = RUNNABLE;
+
   sched();
   release(&p->lock);
 }
